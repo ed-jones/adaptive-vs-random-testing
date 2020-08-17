@@ -6,7 +6,6 @@ authors = ["Ed Jones <edjones1999@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-display = "^1.0.0"
 pygame = "2.0.0.dev6"
 
 [tool.poetry.dev-dependencies]
@@ -14,6 +13,7 @@ pytest = "^5.2"
 
 [tool.poetry.scripts]
 group-project = "group_project:main"
+test-version = "tests:test_version"
 
 [build-system]
 requires = ["poetry>=0.12"]
