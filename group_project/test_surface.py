@@ -18,5 +18,8 @@ class TestSurface:
         rect = pygame.Rect(randomCoords[0], randomCoords[1], failure_rate*SURFACE_DIMENSIONS[0], failure_rate*SURFACE_DIMENSIONS[1])
         pygame.draw.rect(self._display_surface, Colors.RED, rect)
 
+    def place_test_case(self, randomCoords):
+        pygame.draw.circle(self._display_surface, Colors.BLUE, randomCoords, 5)
+
     def get_display_surface(self):
         return self._display_surface

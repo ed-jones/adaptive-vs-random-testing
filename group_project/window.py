@@ -23,16 +23,23 @@ class Window:
         rt_surface = RTSurface()
         art_surface = ARTSurface()
 
-        random.seed()
         max_x = SURFACE_DIMENSIONS[0]-self.failure_rate*SURFACE_DIMENSIONS[0]
         max_y = SURFACE_DIMENSIONS[1]-self.failure_rate*SURFACE_DIMENSIONS[1]
-        randomCoords = (random.randint(0, max_x), random.randint(0, max_y))
+        failure_area_coords = self.generate_random_coords((max_x, max_y))
 
-        rt_surface.place_failure_area(randomCoords, self.failure_rate)
-        art_surface.place_failure_area(randomCoords, self.failure_rate)
+        rt_surface.place_failure_area(failure_area_coords, self.failure_rate)
+        art_surface.place_failure_area(failure_area_coords, self.failure_rate)
+
+        test_case_coords = self.generate_random_coords()
+        rt_surface.place_test_case(test_case_coords)
+        art_surface.place_test_case(test_case_coords)
 
         self._display_surface.blit(rt_surface.get_display_surface(), (MARGIN, MARGIN))
         self._display_surface.blit(art_surface.get_display_surface(), (SURFACE_DIMENSIONS[0]+MARGIN*2, MARGIN))
+
+    def generate_random_coords(self, max_coords: (int, int) = SURFACE_DIMENSIONS):
+        random.seed()
+        return (random.randint(0, max_coords[0]), random.randint(0, max_coords[1]))
 
     def on_event(self, event):
         if event.type == pygame.QUIT:
