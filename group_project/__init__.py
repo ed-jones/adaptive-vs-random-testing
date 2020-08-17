@@ -15,5 +15,5 @@ def main():
         print("Failure rate must lie between 0 and 1 exclusively.")
         exit()
 
-    window = Window()
+    window = Window(failure_rate)
     window.on_execute()

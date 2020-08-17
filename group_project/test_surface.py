@@ -1,22 +1,21 @@
 import pygame
 from pygame.locals import *
 from group_project.colors import Colors
+from group_project.globals import *
 import random
-
-DIMENSIONS = (500, 500)
 
 class TestSurface:
     def __init__(self, title="Test Surface"):
-        self._display_surface = pygame.Surface(DIMENSIONS)
+        self._display_surface = pygame.Surface(SURFACE_DIMENSIONS)
         self._display_surface.fill(Colors.WHITE)
 
         pygame.font.init()
-        font = pygame.font.SysFont("Calibri", 64)
+        font = pygame.font.SysFont("Calibri", round(SURFACE_DIMENSIONS[1]/10))
         font_surface = font.render(title, True, Colors.BLACK)
-        self._display_surface.blit(font_surface, (50, 50))
+        self._display_surface.blit(font_surface, (10, 10))
 
-    def place_failure_area(self, randomCoords):
-        rect = pygame.Rect(randomCoords[0], randomCoords[1], 10, 10)
+    def place_failure_area(self, randomCoords, failure_rate):
+        rect = pygame.Rect(randomCoords[0], randomCoords[1], failure_rate*SURFACE_DIMENSIONS[0], failure_rate*SURFACE_DIMENSIONS[1])
         pygame.draw.rect(self._display_surface, Colors.RED, rect)
 
     def get_display_surface(self):

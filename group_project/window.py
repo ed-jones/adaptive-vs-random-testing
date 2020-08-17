@@ -3,15 +3,15 @@ from pygame.locals import *
 from group_project.colors import Colors
 from group_project.rt_surface import RTSurface 
 from group_project.art_surface import ARTSurface
+from group_project.globals import *
 import random
 
-DIMENSIONS = (1018, 512)
-
 class Window:
-    def __init__(self):
+    def __init__(self, failure_rate):
         self._running = True
         self._display_surface = None
-        self.size = self.width, self.height = DIMENSIONS
+        self.size = self.width, self.height = (SURFACE_DIMENSIONS[0]*2+MARGIN*3, SURFACE_DIMENSIONS[1]+MARGIN*2)
+        self.failure_rate = failure_rate
  
     def on_init(self):
         pygame.init()
@@ -24,13 +24,15 @@ class Window:
         art_surface = ARTSurface()
 
         random.seed()
-        randomCoords = (random.randint(0, 500), random.randint(0, 500))
+        max_x = SURFACE_DIMENSIONS[0]-self.failure_rate*SURFACE_DIMENSIONS[0]
+        max_y = SURFACE_DIMENSIONS[1]-self.failure_rate*SURFACE_DIMENSIONS[1]
+        randomCoords = (random.randint(0, max_x), random.randint(0, max_y))
 
-        rt_surface.place_failure_area(randomCoords)
-        art_surface.place_failure_area(randomCoords)
+        rt_surface.place_failure_area(randomCoords, self.failure_rate)
+        art_surface.place_failure_area(randomCoords, self.failure_rate)
 
-        self._display_surface.blit(rt_surface.get_display_surface(), (6, 6))
-        self._display_surface.blit(art_surface.get_display_surface(), (512, 6))
+        self._display_surface.blit(rt_surface.get_display_surface(), (MARGIN, MARGIN))
+        self._display_surface.blit(art_surface.get_display_surface(), (SURFACE_DIMENSIONS[0]+MARGIN*2, MARGIN))
 
     def on_event(self, event):
         if event.type == pygame.QUIT:
