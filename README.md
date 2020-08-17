@@ -1,5 +1,5 @@
-# csci318-group-project
-This project implements ART and RT test case generation algorithms in order to determine which can more quickly detect a failure
+# CSCI318 Group Project
+This project implements ART and RT test case generation algorithms in order to determine which can more quickly detect a failure.
 
 ## Setup
 1. Install Python^3.7 https://www.python.org/downloads/
