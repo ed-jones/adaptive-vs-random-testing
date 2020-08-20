@@ -16,24 +16,29 @@ class Window:
     def on_init(self):
         pygame.init()
         pygame.display.set_caption("CSCI318 Group Project")
-        self._display_surface = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self._display_surface = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.RESIZABLE | pygame.SCALED)
         self._display_surface.fill(Colors.BLACK)
         self._running = True
 
+        # Create test surfaces
         rt_surface = RTSurface()
         art_surface = ARTSurface()
 
+        # Generate initial failure area
         max_x = SURFACE_DIMENSIONS[0]-self.failure_rate*SURFACE_DIMENSIONS[0]
         max_y = SURFACE_DIMENSIONS[1]-self.failure_rate*SURFACE_DIMENSIONS[1]
         failure_area_coords = self.generate_random_coords((max_x, max_y))
 
+        # Add failure area to test surfaces
         rt_surface.place_failure_area(failure_area_coords, self.failure_rate)
         art_surface.place_failure_area(failure_area_coords, self.failure_rate)
 
+        # Add initial test case to test surfaces
         test_case_coords = self.generate_random_coords()
         rt_surface.place_test_case(test_case_coords)
         art_surface.place_test_case(test_case_coords)
 
+        # Attach test cases to display
         self._display_surface.blit(rt_surface.get_display_surface(), (MARGIN, MARGIN))
         self._display_surface.blit(art_surface.get_display_surface(), (SURFACE_DIMENSIONS[0]+MARGIN*2, MARGIN))
 

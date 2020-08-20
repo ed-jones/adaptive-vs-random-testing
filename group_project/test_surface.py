@@ -15,7 +15,12 @@ class TestSurface:
         self._display_surface.blit(font_surface, (10, 10))
 
     def place_failure_area(self, randomCoords, failure_rate):
-        rect = pygame.Rect(randomCoords[0], randomCoords[1], failure_rate*SURFACE_DIMENSIONS[0], failure_rate*SURFACE_DIMENSIONS[1])
+        rect = pygame.Rect(
+            randomCoords[0], 
+            randomCoords[1], 
+            failure_rate*SURFACE_DIMENSIONS[0], 
+            failure_rate*SURFACE_DIMENSIONS[1]
+        )
         pygame.draw.rect(self._display_surface, Colors.RED, rect)
 
     def place_test_case(self, randomCoords):
