@@ -57,8 +57,8 @@ class Window:
         if not (self.rt_surface.check_failure() or self.art_surface.check_failure()):
             self.rt_surface.place_test_case(self.rt_surface.generate_new_test_case())
             self.art_surface.place_test_case(self.rt_surface.generate_new_test_case())
-            self.print_test_result()
             self.test_count += 1 
+            self.print_test_result()
 
         # Draw test surfaces to window
         self._display_surface.blit(self.rt_surface.get_display_surface(), (MARGIN, MARGIN))
