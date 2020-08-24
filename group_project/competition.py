@@ -1,7 +1,7 @@
 import pygame
-from group_project.rt_surface import RTSurface 
-from group_project.art_surface import ARTSurface
-from group_project.globals import *
+from group_project.surfaces.rt_surface import RTSurface 
+from group_project.surfaces.art_surface import ARTSurface
+from group_project.globals.dimensions import *
 import random
 
 class Competition:
@@ -31,6 +31,8 @@ class Competition:
         self.on_init()
 
     def on_init(self):
+        self.test_count = 1
+
         # Create test surfaces
         self.rt_surface = RTSurface()
         self.art_surface = ARTSurface()
@@ -81,6 +83,8 @@ class Competition:
         )
 
     def reset(self):
+        print()
+
         if self.rt_surface.check_failure():
             self.rt_wins += 1
         elif self.art_surface.check_failure():
@@ -88,11 +92,14 @@ class Competition:
 
         if self.competition_number == 0:
             max_competitions_string = input("How many more competitions do you want to run? ")
-            self.max_competitions: int = int(max_competitions_string)
+            try:
+                self.max_competitions: int = int(max_competitions_string)
+            except ValueError:
+                self.max_competitions = 0
         if self.competition_number < self.max_competitions:
             self.competition_number += 1
             self.on_init()
         else:
-            print(self.competition_number, "competitions have been completed, of which RT wins", 
+            print(self.competition_number + 1, "competitions have been completed, of which RT wins", 
                 self.rt_wins, "times and ART wins", self.art_wins, "times.")
             exit()

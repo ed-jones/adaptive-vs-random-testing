@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
-from group_project.colors import Colors
-from group_project.globals import *
+from group_project.globals.colors import Colors
+from group_project.globals.dimensions import *
 
 class TestSurface:
     def __init__(self, title="Test Surface"):

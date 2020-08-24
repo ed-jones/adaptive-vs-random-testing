@@ -1,5 +1,5 @@
-from group_project.test_surface import TestSurface
-from group_project.globals import *
+from group_project.surfaces.test_surface import TestSurface
+from group_project.globals.dimensions import *
 import random
 
 class RTSurface(TestSurface):
