@@ -4,7 +4,9 @@ import random
 
 class ARTSurface(TestSurface):
     def __init__(self):
-        super().__init__("ART")
+        self.title = "ART"
+        self.position = (SURFACE_DIMENSIONS[0]+MARGIN*2, MARGIN)
+        super().__init__()
 
     def generate_new_test_case(self) -> (int, int):
         random.seed()

@@ -4,7 +4,9 @@ import random
 
 class RTSurface(TestSurface):
     def __init__(self):
-        super().__init__("RT")
+        self.title = "RT"
+        self.position = (MARGIN, MARGIN)
+        super().__init__()
 
     def generate_new_test_case(self) -> (int, int):
         random.seed()
