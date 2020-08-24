@@ -15,6 +15,8 @@ class GroupProject(Game):
         self.rt_wins = 0
         self.art_wins = 0
         self.failure_rate: float = 0
+        self.rt_surface = RTSurface()
+        self.art_surface = ARTSurface()
 
         # Get failure area from stdin
         try:
@@ -39,13 +41,13 @@ class GroupProject(Game):
             random.seed()
             return (random.randint(0, max_coords[0]), random.randint(0, max_coords[1]))
 
-        # Create test surfaces
-        self.rt_surface = RTSurface()
-        self.art_surface = ARTSurface()
+        # Reset test surfaces
+        self.rt_surface.reset()
+        self.art_surface.reset()
 
         # Generate initial failure area
-        max_x = SURFACE_DIMENSIONS[0]-self.failure_rate*SURFACE_DIMENSIONS[0]
-        max_y = SURFACE_DIMENSIONS[1]-self.failure_rate*SURFACE_DIMENSIONS[1]
+        max_x = SURFACE_DIMENSIONS[0] - self.failure_rate*SURFACE_DIMENSIONS[0]
+        max_y = SURFACE_DIMENSIONS[1] - self.failure_rate*SURFACE_DIMENSIONS[1]
         failure_area_coords = generate_random_coords((max_x, max_y))
 
         # Add failure area to test surfaces
@@ -64,9 +66,6 @@ class GroupProject(Game):
         art_coords = self.art_surface.generate_new_test_case()
         self.place_test_cases(rt_coords, art_coords)
 
-        self.rt_surface.draw(self._display_surface)
-        self.art_surface.draw(self._display_surface)
-
     def place_test_cases(self, rt_coords, art_coords):
         self.rt_surface.place_test_case(rt_coords)
         self.art_surface.place_test_case(art_coords)
@@ -80,6 +79,9 @@ class GroupProject(Game):
             "ART -",
             "HIT!! " if self.art_surface.check_failure() else "missed",
         )
+
+        self.rt_surface.draw(self._display_surface)
+        self.art_surface.draw(self._display_surface)
 
     def reset(self):
         print()

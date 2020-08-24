@@ -6,12 +6,18 @@ from group_project.globals.dimensions import *
 class TestSurface():
     def __init__(self):
         self._surface = pygame.Surface(SURFACE_DIMENSIONS)
+        self.init_surface()
+
+    def init_surface(self):
         self._surface.fill(Colors.WHITE)
 
         pygame.font.init()
         font = pygame.font.SysFont("Calibri", round(SURFACE_DIMENSIONS[1]/10))
         font_surface = font.render(self.title, True, Colors.BLACK)
         self._surface.blit(font_surface, (10, 10))
+
+    def reset(self):
+        self.init_surface()
 
     def place_failure_area(self, coords, failure_rate):
         self.failure_area = {
