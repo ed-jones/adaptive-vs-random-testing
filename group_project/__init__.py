@@ -5,21 +5,5 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 from group_project.window import Window
 
 def main():
-    failure_rate: float = 0
-    try:
-        failure_rate_string: str = input("Enter a failure rate: ")
-        failure_rate = round(float(failure_rate_string), 2)
-        assert failure_rate > 0 and failure_rate < 1
-    except ValueError:
-        if failure_rate_string == '':
-            print("No failure rate supplied, using 0.01 as default")
-            failure_rate = 0.01
-        else:
-            print("Failure rate must be a floating point number.")
-            exit()
-    except AssertionError:
-        print("Failure rate must lie between 0 and 1 exclusively.")
-        exit()
-
-    window = Window(failure_rate)
+    window = Window()
     window.on_execute()
