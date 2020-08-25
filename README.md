@@ -6,4 +6,4 @@ This project implements ART and RT test case generation algorithms in order to d
 2. Install Python Poetry https://python-poetry.org/docs/
 3. Clone the project
 4. Run `$poetry install` inside the root directory
-5. Run the command `poetry run group-project` 
+5. Run `$poetry run group-project` 
