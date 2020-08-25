@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from group_project.globals.colors import Colors
 from group_project.globals.dimensions import *
+import math
 
 class TestSurface():
     def __init__(self):
@@ -23,8 +24,8 @@ class TestSurface():
         self.failure_area = {
             "x": coords[0], 
             "y": coords[1], 
-            "width": failure_rate*SURFACE_DIMENSIONS[0], 
-            "height": failure_rate*SURFACE_DIMENSIONS[1]
+            "width": SURFACE_DIMENSIONS[0]*failure_rate,
+            "height": SURFACE_DIMENSIONS[1]*failure_rate,
         }
         rect = pygame.Rect(
             self.failure_area["x"],
