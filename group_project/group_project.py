@@ -48,14 +48,14 @@ class GroupProject(Game):
         self.art_surface.test_cases = []
 
         # Generate initial failure area
-        square_dimension = self.failure_rate*math.sqrt(SURFACE_DIMENSIONS[0]*SURFACE_DIMENSIONS[1])
+        square_dimension = math.sqrt(self.failure_rate*SURFACE_DIMENSIONS[0]*SURFACE_DIMENSIONS[1])
         max_x = round(SURFACE_DIMENSIONS[0] - square_dimension)
         max_y = round(SURFACE_DIMENSIONS[1] - square_dimension)
         failure_area_coords = generate_random_coords((max_x, max_y))
 
         # Add failure area to test surfaces
-        self.rt_surface.place_failure_area(failure_area_coords, self.failure_rate)
-        self.art_surface.place_failure_area(failure_area_coords, self.failure_rate)
+        self.rt_surface.place_failure_area(failure_area_coords, square_dimension)
+        self.art_surface.place_failure_area(failure_area_coords, square_dimension)
 
         # Add initial test case (same on both)
         random_coords = generate_random_coords()

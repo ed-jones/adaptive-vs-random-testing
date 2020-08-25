@@ -20,12 +20,12 @@ class TestSurface():
     def reset(self):
         self.init_surface()
 
-    def place_failure_area(self, coords, failure_rate):
+    def place_failure_area(self, coords, square_dimension):
         self.failure_area = {
             "x": coords[0], 
             "y": coords[1], 
-            "width": SURFACE_DIMENSIONS[0]*failure_rate,
-            "height": SURFACE_DIMENSIONS[1]*failure_rate,
+            "width": square_dimension,
+            "height": square_dimension,
         }
         rect = pygame.Rect(
             self.failure_area["x"],
