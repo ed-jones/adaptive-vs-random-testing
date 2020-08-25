@@ -7,7 +7,7 @@ import random
 import math
 
 class GroupProject(Game):
-    def __init__(self):
+    def __init__(self, failure_rate):
         super().__init__()
 
         self.test_count = 0
@@ -15,26 +15,12 @@ class GroupProject(Game):
         self.max_competitions = 1
         self.rt_wins = 0
         self.art_wins = 0
-        self.failure_rate: float = 0
+        self.failure_rate: float = failure_rate
         self.rt_surface = RTSurface()
         self.art_surface = ARTSurface()
 
-        # Get failure area from stdin
-        try:
-            failure_rate_string: str = input("Enter a failure rate: ")
-            self.failure_rate = float(failure_rate_string)
-            assert self.failure_rate > 0 and self.failure_rate < 1
-        except ValueError:
-            if failure_rate_string == '':
-                print("No failure rate supplied, using 0.01 as default")
-                self.failure_rate = 0.01
-            else:
-                print("Failure rate must be a floating point number.")
-                exit()
-        except AssertionError:
-            print("Failure rate must lie between 0 and 1 exclusively.")
-            exit()
-
+    def on_init(self):
+        super().on_init()
         self.build_test_surfaces()
 
     def build_test_surfaces(self):
@@ -45,6 +31,7 @@ class GroupProject(Game):
         # Reset test surfaces
         self.rt_surface.reset()
         self.art_surface.reset()
+
         self.art_surface.test_cases = []
 
         # Generate initial failure area
@@ -60,13 +47,13 @@ class GroupProject(Game):
         # Add initial test case (same on both)
         random_coords = generate_random_coords()
         self.place_test_cases(random_coords, random_coords)
-        self.check_failure()
+
 
     def on_loop(self):
-        self.check_failure()
-        rt_coords = self.rt_surface.generate_new_test_case()
-        art_coords = self.art_surface.generate_new_test_case()
-        self.place_test_cases(rt_coords, art_coords)
+        self.place_test_cases(\
+            self.rt_surface.generate_new_test_case(),\
+            self.art_surface.generate_new_test_case()\
+        )
 
     def check_failure(self):
         if self.rt_surface.check_failure() or self.art_surface.check_failure():
@@ -88,10 +75,13 @@ class GroupProject(Game):
 
         self.rt_surface.draw(self._display_surface)
         self.art_surface.draw(self._display_surface)
+        pygame.display.update()
+
+        self.check_failure()
 
     def reset(self):
         print()
-
+        
         if self.rt_surface.check_failure():
             self.rt_wins += 1
         if self.art_surface.check_failure():
@@ -111,4 +101,4 @@ class GroupProject(Game):
         else:
             print(self.competition_number + 1, "competitions have been completed, of which RT wins", 
                 self.rt_wins, "times and ART wins", self.art_wins, "times.")
-            exit()
+            exit(0)
