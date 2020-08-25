@@ -60,14 +60,17 @@ class GroupProject(Game):
         # Add initial test case (same on both)
         random_coords = generate_random_coords()
         self.place_test_cases(random_coords, random_coords)
+        self.check_failure()
 
     def on_loop(self):
-        if self.rt_surface.check_failure() or self.art_surface.check_failure():
-            self.reset()
-
+        self.check_failure()
         rt_coords = self.rt_surface.generate_new_test_case()
         art_coords = self.art_surface.generate_new_test_case()
         self.place_test_cases(rt_coords, art_coords)
+
+    def check_failure(self):
+        if self.rt_surface.check_failure() or self.art_surface.check_failure():
+            self.reset()
 
     def place_test_cases(self, rt_coords, art_coords):
         self.rt_surface.place_test_case(rt_coords)

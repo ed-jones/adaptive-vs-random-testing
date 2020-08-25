@@ -14,6 +14,10 @@ class ARTSurface(TestSurface):
         self.test_cases.append(coords)
         super().place_test_case(coords)
 
+    def reset(self):
+        super().reset()
+        self.test_cases = []
+
     def generate_new_test_case(self) -> (int, int):
         k: int = 10
         max_distance = 0
