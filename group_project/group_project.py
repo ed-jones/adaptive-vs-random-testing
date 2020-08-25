@@ -22,7 +22,7 @@ class GroupProject(Game):
         # Get failure area from stdin
         try:
             failure_rate_string: str = input("Enter a failure rate: ")
-            self.failure_rate = round(float(failure_rate_string), 2)
+            self.failure_rate = float(failure_rate_string)
             assert self.failure_rate > 0 and self.failure_rate < 1
         except ValueError:
             if failure_rate_string == '':
