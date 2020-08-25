@@ -31,9 +31,7 @@ class GroupProject(Game):
         # Reset test surfaces
         self.rt_surface.reset()
         self.art_surface.reset()
-
-        self.art_surface.test_cases = []
-
+        
         # Generate initial failure area
         square_dimension = math.sqrt(self.failure_rate*SURFACE_DIMENSIONS[0]*SURFACE_DIMENSIONS[1])
         max_x = round(SURFACE_DIMENSIONS[0] - square_dimension)
